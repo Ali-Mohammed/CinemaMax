@@ -31,8 +31,19 @@ namespace CinemaMax
             services.AddDbContext<MovieContext>();
 
             services.AddControllersWithViews();
-            services.AddSignalR();
+            services.AddSignalR(o =>
+            {
+                o.EnableDetailedErrors = true;
+            });
 
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AutomaticAuthentication = false;
+            });
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder

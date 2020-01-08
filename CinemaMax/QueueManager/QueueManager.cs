@@ -1,4 +1,5 @@
 ﻿using CinemaMax.DownloadManager;
+using CinemaMaxFeeder;
 using Hangfire;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,13 @@ namespace CinemaMax.QueueManager
     {
         public static void StartQueueManager()
         {
-            RecurringJob.AddOrUpdate(
-                  () =>
-                  addMoveAsync(),
-            Cron.Minutely);
+            if (Config.StartJobsInBackground)
+            {
+                RecurringJob.AddOrUpdate(
+                    () =>
+                    addMoveAsync(),
+                Cron.Minutely);
+            }
         }
 
         public static async Task addMoveAsync()

@@ -49,5 +49,8 @@ namespace CinemaMaxFeeder.ModelJson
 
         [JsonIgnore]
         public long ServerId { get; set; }
+
+        [JsonIgnore]
+        public long FileSize { get; set; }
     }
 }

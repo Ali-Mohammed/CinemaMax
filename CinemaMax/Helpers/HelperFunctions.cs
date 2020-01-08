@@ -70,16 +70,33 @@ namespace CinemaMax.Helpers
 
             foreach (var link in transcoddedFiles)
             {
-                if (link.Resolution == "1080p") { return link.Resolution; }
+                if (link.Resolution == "1080p") { return "1080p"; }
 
-                if (link.Resolution == "720p") { return link.Resolution; }
+            }
 
-                if (link.Resolution == "480p") { return link.Resolution; }
+            foreach (var link in transcoddedFiles)
+            {
 
-                if (link.Resolution == "360p") { return link.Resolution; }
+                if (link.Resolution == "720p") { return "720p"; }
 
-                if (link.Resolution == "240p") { return link.Resolution; }
+            }
 
+            foreach (var link in transcoddedFiles)
+            {
+
+                if (link.Resolution == "480p") { return "480p"; }
+
+            }
+
+            foreach (var link in transcoddedFiles)
+            {
+
+                if (link.Resolution == "360p") { return "360p"; }
+
+            }
+            foreach (var link in transcoddedFiles)
+            {
+                if (link.Resolution == "240p") { return "240p"; }
             }
 
             return "";

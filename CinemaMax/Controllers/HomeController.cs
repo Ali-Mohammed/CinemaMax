@@ -45,9 +45,11 @@ namespace CinemaMax.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
+
+
             DownloadProgress downloadProcessor = new DownloadProgress(LoggerDownloadProcessor, _downloadProgressHub);
             downloadProcessor.StartDownload();
-            return Ok(new { Message = "Request Completed" });
+            return Ok(new { Message = "Request Completed 2 " });
         }
 
         public IActionResult Privacy()

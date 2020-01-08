@@ -436,6 +436,9 @@ namespace CinemaMaxFeeder.Migrations
                     b.Property<int>("DownloadStatus")
                         .HasColumnType("int");
 
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("FinishDownloadAt")
                         .HasColumnType("datetime2");
 

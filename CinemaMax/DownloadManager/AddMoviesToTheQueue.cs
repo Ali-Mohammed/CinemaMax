@@ -3,6 +3,7 @@ using CinemaMaxFeeder;
 using CinemaMaxFeeder.Database.Model;
 using CinemaMaxFeeder.ModelJson;
 using GensouSakuya.Aria2.SDK;
+using GensouSakuya.Aria2.SDK.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,37 +15,108 @@ namespace CinemaMax.DownloadManager
     public class AddMoviesToTheQueue
     {
         private readonly MovieContext _movieContextDownloadQueue;
+        private readonly MovieContext _movieContextUpdate;
         Aria2Client _aria2Client;
 
         public AddMoviesToTheQueue()
         {
             this._movieContextDownloadQueue = new MovieContext();
-            this._aria2Client = new Aria2Client("http://127.0.0.1", 6800);
+            this._movieContextUpdate = new MovieContext();
+
+            this._aria2Client = new Aria2Client(Config.Aria2Url, Config.Aria2Port);
         }
 
         public async Task AddMovieToTheDownloadQueueAsync()
         {
 
+            //----------------------------------------------------//
+            //Please notice that those functions are run in order!//
+            //----------------------------------------------------//
+
+
             //Restart the download if the Aria2 Crash or restart
             //this will restart all the download file, and set the status to waiting again and increase the retry
+            //[THIS WILL CHECK THE ARIA2]
             await CheckIfTheAriaHasBeenRestartAsync();
+
+
+            //Change the status of the download file to error when the file errored
+            //[THIS WILL CHECK THE ARIA2]
+            await CheckIfTheDownloadFileIfGetErrored();
+
 
             //Restart the error download
             //if for some reason the download file get errored, it will resatrted and increased the retry
+            //[THIS WILL CHECK THE DATABASE]
             await RestartErrorDownloadFiles();
 
 
             //Change the status of the download file to complete when the file finished
+            //[THIS WILL CHECK THE ARIA2]
             await CheckIfTheDownloadFileComplete();
+
 
 
             if (_movieContextDownloadQueue
                 .Movies.Where(q => q.DownloadStatus == CinemaMaxFeeder.Database.Model.MovieDownloadStatus.Started)
                 .Count() <= Config.MaxDownloadItemsIntheSameTime - 1)
             {
-                    AddWaitingMovie();
+                  await  AddWaitingMovieAsync();
                 
             }
+        }
+
+
+        private async Task CheckIfTheDownloadFileIfGetErrored()
+        {
+
+            var getAllCompleteFiles = await _aria2Client.TellStopped();
+            foreach (var downloadFile in getAllCompleteFiles)
+            {
+                if (downloadFile.Status == "error")
+                {
+                    await MarkDownloadFileAsErrored(downloadFile);
+                }
+            }
+        }
+
+        private async Task MarkDownloadFileAsErrored(DownloadStatusModel downloadFile)
+        {
+
+            //Check file if exist into the Database
+            if (_movieContextUpdate.Movies
+                .Where(Q => Q.DownloadId == downloadFile.GID)
+                .Include(In => In.TranscoddedFiles).Count() == 0)
+            {
+               await _aria2Client.Remove(downloadFile.GID);
+               await _aria2Client.ForceRemove(downloadFile.GID);
+
+                return;
+            }
+
+            //Get the movie instant from the database
+            var movie = await _movieContextUpdate.Movies
+               .Where(Q => Q.DownloadId == downloadFile.GID)
+               .Include(In => In.TranscoddedFiles)
+               .FirstAsync();
+
+            movie.DownloadStatus = CinemaMaxFeeder.Database.Model.MovieDownloadStatus.Error;
+            movie.DownloadId = "";
+
+            var getMovieLink = movie.TranscoddedFiles
+            .Where(q => q.Resolution == HelperFunctions.FindMovieRes(movie.TranscoddedFiles))
+            .First();
+
+            getMovieLink.DownloadStatus = CinemaMaxFeeder.Database.Model.MovieDownloadStatus.Error;
+            getMovieLink.FinishDownloadAt = DateTime.Now;
+            getMovieLink.DownloadId = "";
+
+
+            _movieContextUpdate.SaveChanges();
+
+            await _aria2Client.Remove(downloadFile.GID);
+            await _aria2Client.ForceRemove(downloadFile.GID);
+
         }
 
         private async Task CheckIfTheDownloadFileComplete()
@@ -53,8 +125,46 @@ namespace CinemaMax.DownloadManager
             var getAllCompleteFiles = await _aria2Client.TellStopped();
             foreach (var downloadFile in getAllCompleteFiles)
             {
-
+                if (downloadFile.Status == "complete")
+                {
+                    await MarkDownloadFileAsComplete(downloadFile);
+                }
             }
+        }
+
+        private async Task MarkDownloadFileAsComplete(DownloadStatusModel downloadFile)
+        {
+
+            //Check file if exist into the Database
+            if (_movieContextUpdate.Movies
+                .Where(Q => Q.DownloadId == downloadFile.GID)
+                .Include(In => In.TranscoddedFiles).Count() == 0)
+            {
+
+                return;
+            }
+
+            //Get the movie instant from the database
+             var movie = await _movieContextUpdate.Movies
+                .Where(Q => Q.DownloadId == downloadFile.GID)
+                .Include(In => In.TranscoddedFiles)
+                .FirstAsync();
+
+            movie.DownloadStatus = CinemaMaxFeeder.Database.Model.MovieDownloadStatus.Complete;
+            movie.FinishDownloadAt = DateTime.Now;
+
+            var getMovieLink = movie.TranscoddedFiles
+            .Where(q => q.Resolution == HelperFunctions.FindMovieRes(movie.TranscoddedFiles))
+            .First();
+
+            getMovieLink.DownloadStatus = CinemaMaxFeeder.Database.Model.MovieDownloadStatus.Complete;
+            getMovieLink.FinishDownloadAt = DateTime.Now;
+            getMovieLink.DownloadLocalPath = downloadFile.Files[0].Path;
+            getMovieLink.FileSize = downloadFile.TotalLength;
+
+
+            _movieContextUpdate.SaveChanges();
+
         }
 
         private async Task RestartErrorDownloadFiles()
@@ -125,7 +235,7 @@ namespace CinemaMax.DownloadManager
             }
         }
 
-        private void AddWaitingMovie()
+        private async Task AddWaitingMovieAsync()
         {
             var getMovies = _movieContextDownloadQueue
                             .Movies
@@ -133,6 +243,9 @@ namespace CinemaMax.DownloadManager
                             .OrderByDescending(o => o.Priority)
                             .Include(c => c.TranscoddedFiles)
                             .First();
+
+            getMovies.DownloadStatus = CinemaMaxFeeder.Database.Model.MovieDownloadStatus.Started;
+            await _movieContextDownloadQueue.SaveChangesAsync();
 
             AddTheUriToAria2(getMovies, 1);
         }
@@ -159,9 +272,9 @@ namespace CinemaMax.DownloadManager
             getMovies.DownloadRetry = numberOfTry;
             getMovies.DownloadId = downloadInstant.Result;
 
+
             _movieContextDownloadQueue.SaveChanges();
         }
-
 
     }
 }
