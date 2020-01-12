@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CinemaMaxFeeder
 {
-    class RequestHelper
+    public class RequestHelper
     {
         public static T Call<T>(string reqUrl) 
         {

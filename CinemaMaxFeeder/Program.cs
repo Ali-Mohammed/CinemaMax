@@ -5,54 +5,14 @@ namespace CinemaMaxFeeder
 {
     class Program
     {
-        static void Main(string[] args)
+        static async System.Threading.Tasks.Task Main(string[] args)
         {
 
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("++++++++++++++++++++++++++ START +++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            AppStarter app = new AppStarter();
+            await app.RunAsync();
 
-            //First the start pulling the banner movies!
-            var start = new Start();
-            start.PullingSlideShow();
+            Console.ReadKey();
 
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("++++++++++++++++++++++++++ DONE +++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
-
-
-
-            var context = new MovieContext();
-            var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromMinutes(3);
-            
-            var timer = new System.Threading.Timer((e) =>
-            {
-                Console.WriteLine("Loop....");
-
-                var count = context.Movies.Count();
-                Console.WriteLine(count);
-
-                RunProgram();
-
-            }, null, startTimeSpan, periodTimeSpan);
-
-
-            Console.ReadLine();
-            
-        }
-
-
-        public static void RunProgram()
-        {
-            var start = new Start();
-            start.Pulling();
-            Console.ReadLine();
         }
     }
 }

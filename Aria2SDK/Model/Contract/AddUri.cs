@@ -12,6 +12,7 @@ namespace GensouSakuya.Aria2.SDK.Model
         public int? Position { get; set; }
         public string Out { get; set; }
         public Options Params { get; internal set; }
+        public Options Option { get; internal set; }
 
         protected override string MethodName => "aria2.addUri";
 

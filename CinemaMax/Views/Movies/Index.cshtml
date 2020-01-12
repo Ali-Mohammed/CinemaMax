@@ -1,0 +1,359 @@
+﻿@model IEnumerable<CinemaMaxFeeder.Database.Model.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nb)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSlideShow)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DownloadStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stars)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnTranslationFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArTranslationFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kind)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Season)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Img)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgThumb)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgMediumThumb)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgObjUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgMediumThumbObjUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilmRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeriesRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EpisodeNummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSpecial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImdbUrlRef)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgBanner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RootSeries)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseParentImg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpTranslationFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowComments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EpisodeFlag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trailer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AudioStreamNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentSkipping)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CollectionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CacheShort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgThumbObjUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArTranslationFilePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnTranslationFilePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HasIntroSkipping)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoLikesNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoDisLikesNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoCommentsNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoViewsNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Castable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDownloadAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishDownloadAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DownloadRetry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DownloadId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nb)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSlideShow)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DownloadStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stars)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnTranslationFile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArTranslationFile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileFile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kind)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Season)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Img)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgThumb)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgMediumThumb)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgObjUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgMediumThumbObjUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilmRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeriesRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EpisodeNummer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSpecial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImdbUrlRef)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgBanner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RootSeries)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseParentImg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpTranslationFile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowComments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EpisodeFlag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trailer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AudioStreamNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentSkipping)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CollectionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CacheShort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgThumbObjUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArTranslationFilePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnTranslationFilePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasIntroSkipping)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoLikesNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoDisLikesNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoCommentsNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoViewsNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Castable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDownloadAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishDownloadAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DownloadRetry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DownloadId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

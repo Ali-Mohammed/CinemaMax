@@ -20,5 +20,6 @@ namespace CinemaMax.Models
         public string downloadSizeHuman { get; internal set; }
         public string StartDownloadAt { get; internal set; }
         public string downloadStatus { get; internal set; }
+        public Uri logo { get; internal set; }
     }
 }

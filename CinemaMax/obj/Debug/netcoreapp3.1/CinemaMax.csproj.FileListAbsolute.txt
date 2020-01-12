@@ -108,3 +108,4 @@ C:\Users\ali87\source\repos\CinemaMax\CinemaMax\obj\Debug\netcoreapp3.1\CinemaMa
 C:\Users\ali87\source\repos\CinemaMax\CinemaMax\obj\Debug\netcoreapp3.1\CinemaMax.csproj.CopyComplete
 C:\Users\ali87\source\repos\CinemaMax\CinemaMax\obj\Debug\netcoreapp3.1\CinemaMax.dll
 C:\Users\ali87\source\repos\CinemaMax\CinemaMax\obj\Debug\netcoreapp3.1\CinemaMax.pdb
+C:\Users\ali87\source\repos\CinemaMax\CinemaMax\bin\Debug\netcoreapp3.1\libman.json

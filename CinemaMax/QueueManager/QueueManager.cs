@@ -14,18 +14,24 @@ namespace CinemaMax.QueueManager
         {
             if (Config.StartJobsInBackground)
             {
-                RecurringJob.AddOrUpdate(
-                    () =>
-                    addMoveAsync(),
-                Cron.Minutely);
+
+              //  RecurringJob.AddOrUpdate(() =>  PullMoviesFromSourceInnerFunction(), "*/5 * * * *");
+              //  RecurringJob.AddOrUpdate(() => PullMovieBannerFromSourceInnerFunction(), Cron.Hourly);
+
             }
+
         }
 
-        public static async Task addMoveAsync()
+        public static void PullMovieBannerFromSourceInnerFunction()
         {
-            AddMoviesToTheQueue addMoviesToTheQueue = new AddMoviesToTheQueue();
-            await addMoviesToTheQueue.AddMovieToTheDownloadQueueAsync();
-            Console.WriteLine("START THE QUEUE FOR ADDING FILE");
+            //CinemaMaxFeeder.PullMoviesFormTheSource start = new CinemaMaxFeeder.PullMoviesFormTheSource();
+           // start.PullingSlideShow();
+        }
+
+        public static void PullMoviesFromSourceInnerFunction()
+        {
+          //  CinemaMaxFeeder.PullMoviesFormTheSource start = new CinemaMaxFeeder.PullMoviesFormTheSource();
+          //  start.Pulling();
         }
     }
 }

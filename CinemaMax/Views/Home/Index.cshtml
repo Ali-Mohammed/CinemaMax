@@ -1,8 +1,255 @@
-﻿@{
+﻿@model IEnumerable<CinemaMaxFeeder.Database.Model.Movie>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+    <div id="main-slider" class="owl-carousel owl-theme">
+
+        @foreach (var item in Model)
+        {
+
+            <div class="item">
+                <img data-u="image" src="@Html.DisplayFor(modelItem => item.BannerFullUrl)">
+                <div class="watch-now">
+                    <a class="analytics" data-analytics="|eventID=4|videoID=329095|eventInt=1|" href="~/page/movie/watch/en/329095">Watch Now</a>
+                </div>
+            </div>
+
+        }
+
+
+
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/797FD76F-961E-3433-29AE-0AE08098221E_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=329330|eventInt=1|" href="~/page/movie/watch/en/329330">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/B1C2BC24-B285-38ED-16CE-2EB3A3F208E1_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=328582|eventInt=1|" href="~/page/movie/watch/en/328582">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/DBD3C226-C21D-FF9B-DC68-8E4FECA6FFA5_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=327974|eventInt=1|" href="~/page/movie/watch/en/327974">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/EA39E46C-AD02-8C6A-FEFD-65F1C16E7EF1_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=327848|eventInt=1|" href="~/page/movie/watch/en/327848">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/88BD10F3-D012-15DE-50C9-26A28B0D6B5C_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=327641|eventInt=1|" href="~/page/movie/watch/en/327641">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/DF96F467-7507-9581-5339-4B36CE510E29_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=327592|eventInt=1|" href="~/page/movie/watch/en/327592">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/29E9657D-E21E-86D5-ACC1-38302DA8485B_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=327584|eventInt=1|" href="~/page/movie/watch/en/327584">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/DFE7B045-FA0C-7084-D2A1-1073EE426522_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=323579|eventInt=1|" href="~/page/movie/watch/en/323579">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/5B2250FC-B2D8-A54E-4E7D-D7079582D9C1_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=326260|eventInt=1|" href="~/page/movie/watch/en/326260">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/52AD80F5-2C33-DE51-BFDD-55BEB48CF2FF_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=326261|eventInt=1|" href="~/page/movie/watch/en/326261">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/CF48F5E0-05EC-D8B6-A13C-B6A37F403967_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=325276|eventInt=1|" href="~/page/movie/watch/en/325276">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/AE61FE01-D3AB-0EA5-A835-26A15DB9A391_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=325739|eventInt=1|" href="~/page/movie/watch/en/325739">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/4D1FF094-3EC0-A861-BDB3-433D08A173A1_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=324954|eventInt=1|" href="~/page/movie/watch/en/324954">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/4CBE00D5-29E7-FB6C-A04E-0146B582E625_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=324259|eventInt=1|" href="~/page/movie/watch/en/324259">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/B4D40425-084B-7B16-76E2-BF0B9A7D69CD_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=324656|eventInt=1|" href="~/page/movie/watch/en/324656">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/C7EF0AD7-D2EC-8F68-85C8-D46847442E3F_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=324373|eventInt=1|" href="~/page/movie/watch/en/324373">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/2275B2A9-B73B-3C7B-FBED-8E6F58E5D9CB_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=324256|eventInt=1|" href="~/page/movie/watch/en/324256">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/62162F61-9190-101C-6BE7-7EE6170A811D_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=323699|eventInt=1|" href="~/page/movie/watch/en/323699">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/B5F14402-456B-0006-05EA-6D86C2A8D64A_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=323691|eventInt=1|" href="~/page/movie/watch/en/323691">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/B18EDE9A-C413-5553-64E1-BE770CD22250_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=323553|eventInt=1|" href="~/page/movie/watch/en/323553">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/7D6F20F5-2D1A-5350-61CD-418194ACF350_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=323546|eventInt=1|" href="~/page/movie/watch/en/323546">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/5DECADB4-9FF5-B2C6-D09F-BD1657E971AC_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=323508|eventInt=1|" href="~/page/movie/watch/en/323508">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/9274C367-AB19-B43A-DE5E-17F10C9B74BC_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=322870|eventInt=1|" href="~/page/movie/watch/en/322870">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/7068865C-AC5D-70E1-E3BA-A92D5EAD72E5_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=321870|eventInt=1|" href="~/page/movie/watch/en/321870">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/AD5DBC31-D3B1-3BBE-6697-F4BF7E392AB3_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=321744|eventInt=1|" href="~/page/movie/watch/en/321744">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/EC85414F-E834-8929-260C-3CE261D791D3_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=321608|eventInt=1|" href="~/page/movie/watch/en/321608">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/73C2DE37-397F-DAA6-D251-3CA43CB3E3DE_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=321384|eventInt=1|" href="~/page/movie/watch/en/321384">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/BB456B62-0F1C-89F3-3A52-F2AE6090F1DB_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=318588|eventInt=1|" href="~/page/movie/watch/en/318588">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/8C83CFB4-F127-85E0-B112-93AADB78CEC4_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=318070|eventInt=1|" href="~/page/movie/watch/en/318070">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/DBD1AD45-0F6B-F0B0-E4E5-DD272A6482CC_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=314829|eventInt=1|" href="~/page/movie/watch/en/314829">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/B766C86B-B3EF-163B-DB94-227FEF8DB6F4_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=315024|eventInt=1|" href="~/page/movie/watch/en/315024">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/B34E1BB7-841F-A5A1-9057-EE791F7E737F_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=314325|eventInt=1|" href="~/page/movie/watch/en/314325">Watch Now</a>
+            </div>
+
+        </div>
+        <div class="item">
+            <img data-u="image" src="https://cnth2.shabakaty.com/cover-images/B52638D1-B63C-E535-A024-CD680F48B2B7_cover.jpg">
+            <div class="watch-now">
+                <a class="analytics" data-analytics="|eventID=4|videoID=312619|eventInt=1|" href="~/page/movie/watch/en/312619">Watch Now</a>
+            </div>
+
+        </div>
+    </div>
+

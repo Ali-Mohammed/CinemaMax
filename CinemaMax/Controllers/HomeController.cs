@@ -47,9 +47,29 @@ namespace CinemaMax.Controllers
         {
 
 
+            //           var process = new Process();
+            //           process.StartInfo.FileName = "CMD.exe";
+            //           process.StartInfo.Arguments = "C:\\Users\\ali87\\Desktop\\./aria2c --enable-rpc --rpc-listen-all";
+            //           process.StartInfo.UseShellExecute = false;
+            //           process.StartInfo.CreateNoWindow = true;
+            //           process.StartInfo.RedirectStandardOutput = true;
+            //           process.OutputDataReceived += (sender, data) => {
+            //               Console.WriteLine(data.Data);
+            //
+            //           };
+            //           process.StartInfo.RedirectStandardError = true;
+            //           process.ErrorDataReceived += (sender, data) => {
+            //               Console.WriteLine(data.Data);
+            //           };
+            //           process.Start();
+
+
+            var bannerMovies = await _movieContext.Movies.Where(Q => Q.IsSlideShow == true).ToListAsync();
+
+
             DownloadProgress downloadProcessor = new DownloadProgress(LoggerDownloadProcessor, _downloadProgressHub);
             downloadProcessor.StartDownload();
-            return Ok(new { Message = "Request Completed 2 " });
+            return View(bannerMovies);
         }
 
         public IActionResult Privacy()

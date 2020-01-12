@@ -1,0 +1,196 @@
+﻿/**** Settings By ANOOS 2014 ****/
+.settings {
+    height: 0;
+    position: fixed;
+    top: -2px;
+    left: -220px;
+    z-index: 21;
+}
+
+    .settings .panel {
+        position: relative;
+        float: left;
+        top: 0;
+        left: 0;
+        width: 220px;
+        height: auto;
+        border-bottom-right-radius: 4px;
+        padding: 20px;
+        background-color: rgba(0,0,0,0.90);
+        z-index: 21;
+    }
+
+        .settings .panel h4, .settings .panel h5 {
+            color: #a7a7a7;
+            text-shadow: 0px 1px rgba(0,0,0,0.25);
+        }
+
+        .settings .panel h3#top {
+            position: relative;
+            padding: 15px 18px 9px 20px;
+            margin: 0 !important;
+            width: 220px;
+            left: -20px;
+            top: -20px;
+            font-weight: normal;
+            background-color: #000;
+            border-bottom: 1px solid #333 !important;
+            box-shadow: inset 0 1px 0 rgba(0,0,0,0.3);
+        }
+
+        .settings .panel .btn {
+            line-height: 20px;
+        }
+
+            .settings .panel .btn.wide {
+                width: 182px;
+                margin: 0 10px 6px 0;
+                text-align: left;
+                padding-left: 30px;
+            }
+
+            .settings .panel .btn.boxed {
+                width: 182px;
+                margin: 0 0 30px 0;
+            }
+
+            .settings .panel .btn.selected, .settings .panel .btn:hover {
+                border: 1px solid #fff;
+            }
+
+        .settings .panel .color_select {
+            position: relative;
+            height: 30px;
+            cursor: pointer;
+            margin: 0 0 10px 0;
+            padding: 2px;
+            border-radius: 4px;
+            opacity: 0.8;
+        }
+
+            .settings .panel .color_select.selected, .settings .panel .color_select:hover {
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,1);
+            }
+
+            .settings .panel .color_select span {
+                position: absolute;
+                top: 5px;
+                left: 10px;
+                color: #fff;
+            }
+
+            .settings .panel .color_select .color span {
+                position: relative;
+                top: 3px;
+                left: 10px;
+                padding-right: 20px;
+                color: #fff;
+            }
+
+            .settings .panel .color_select .color.half {
+                width: 50%;
+                height: 26px;
+                float: left;
+            }
+
+            .settings .panel .color_select .color.third {
+                width: 33%;
+                height: 26px;
+                float: left;
+            }
+
+            .settings .panel .color_select .color.green {
+                background-color: #7cb600;
+            }
+
+            .settings .panel .color_select .color.yellow {
+                background-color: #ecb200;
+            }
+
+            .settings .panel .color_select .color.orange {
+                background-color: #fa5b0f;
+            }
+
+            .settings .panel .color_select .color.orange-blue {
+                background-color: #213944;
+            }
+
+            .settings .panel .color_select .color.red {
+                background-color: #D84747;
+            }
+
+            .settings .panel .color_select .color.violet {
+                background-color: #403350;
+            }
+
+            .settings .panel .color_select .color.turquoise {
+                background-color: #00a56d;
+            }
+
+            .settings .panel .color_select .color.blue {
+                background-color: #0088B2;
+            }
+
+            .settings .panel .color_select .color.purple {
+                background-color: #b51ab0;
+            }
+
+            .settings .panel .color_select .color.pink {
+                background-color: #e91a4f;
+            }
+
+            .settings .panel .color_select .color.grey {
+                background-color: #3a3a3a;
+            }
+
+
+            .settings .panel .color_select .color.white {
+                background-color: #fff;
+            }
+
+    .settings .switch {
+        position: relative;
+        float: left;
+        top: 0;
+        left: -2px;
+        right: 1px;
+        width: 40px;
+        height: 48px;
+        background-color: #000;
+        border: 1px solid #000;
+        z-index: 21;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        cursor: pointer;
+    }
+
+        .settings .switch .fa-cog {
+            position: absolute;
+            left: 7px;
+            top: 11px;
+            /*color:#a7a7a7;*/
+        }
+
+        .settings .switch .fa-user {
+            position: absolute;
+            left: 7px;
+            top: 11px;
+            color: #a7a7a7;
+        }
+
+        .settings .switch .name-user {
+            position: absolute;
+            left: 40px;
+            top: 16px;
+            color: #a7a7a7;
+        }
+
+    .settings .panel .divider {
+        border-bottom: 1px solid #333 !important;
+        box-shadow: inset 0px 1px 0.5px rgba(0,0,0,0.3);
+        height: 1px;
+    }
+
+.icon-margin {
+    margin-right: 15px;
+}

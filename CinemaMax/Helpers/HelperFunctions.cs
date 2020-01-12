@@ -65,7 +65,7 @@ namespace CinemaMax.Helpers
                 : String.Format("About {0} {1}s ago", value, name);
         }
 
-        internal static string FindMovieRes(ICollection<TranscoddedFilesJson> transcoddedFiles)
+        public static string FindMovieRes(ICollection<TranscoddedFilesJson> transcoddedFiles)
         {
 
             foreach (var link in transcoddedFiles)

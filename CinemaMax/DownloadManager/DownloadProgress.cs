@@ -58,11 +58,13 @@ namespace CinemaMax.DownloadManager
                         try
                         {
                             var currentDownloadLink = _movieContextReadOnly.Movies
-                            .Where(Q => Q.TranscoddedFiles.Any(C => C.DownloadId == downloadFile.GID))
+                            .Where(Q => Q.DownloadId == downloadFile.GID)
                             .Include(In => In.TranscoddedFiles)
                             .First();
 
                             downloadsModelItem.GID = currentDownloadLink.ArTitle;
+                            downloadsModelItem.logo = currentDownloadLink.ImgThumbObjUrl;
+
                             downloadsModelItem.StartDownloadAt = HelperFunctions.GetElapsedTime(currentDownloadLink.StartDownloadAt);
                         }
                         catch (Exception ex)
@@ -70,7 +72,6 @@ namespace CinemaMax.DownloadManager
                             downloadsModelItem.GID = "Error - the information is not in the database";
                             downloadsModelItem.StartDownloadAt = "Error - the information is not in the database";
                         }
-
 
 
                         downloadsModelItem.DownloadSpeed = downloadFile.DownloadSpeed;
@@ -95,11 +96,12 @@ namespace CinemaMax.DownloadManager
                         try
                         {
                             var currentDownloadLink = _movieContextReadOnly.Movies
-                            .Where(Q => Q.TranscoddedFiles.Any(C => C.DownloadId == downloadFile.GID))
+                            .Where(Q => Q.DownloadId == downloadFile.GID)
                             .Include(In => In.TranscoddedFiles)
                             .First();
 
                             downloadsModelItem.GID = currentDownloadLink.ArTitle;
+                            downloadsModelItem.logo = currentDownloadLink.ImgThumbObjUrl;
                             downloadsModelItem.StartDownloadAt = HelperFunctions.GetElapsedTime(currentDownloadLink.StartDownloadAt);
                         }
                         catch (Exception ex)

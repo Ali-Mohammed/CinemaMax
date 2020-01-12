@@ -1,0 +1,17 @@
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\SyncFilesToCloud.exe
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\obj\Release\netcoreapp3.1\SyncFilesToCloud.csprojAssemblyReference.cache
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\obj\Release\netcoreapp3.1\SyncFilesToCloud.AssemblyInfoInputs.cache
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\obj\Release\netcoreapp3.1\SyncFilesToCloud.AssemblyInfo.cs
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\SyncFilesToCloud.deps.json
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\SyncFilesToCloud.runtimeconfig.json
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\SyncFilesToCloud.runtimeconfig.dev.json
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\SyncFilesToCloud.dll
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\SyncFilesToCloud.pdb
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\AWSSDK.Core.dll
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\AWSSDK.S3.dll
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\obj\Release\netcoreapp3.1\SyncFilesToCloud.csproj.CopyComplete
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\obj\Release\netcoreapp3.1\SyncFilesToCloud.dll
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\obj\Release\netcoreapp3.1\SyncFilesToCloud.pdb
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
+C:\Users\ali87\source\repos\CinemaMax\SyncFilesToCloud\bin\Release\netcoreapp3.1\Microsoft.WindowsAzure.Configuration.dll

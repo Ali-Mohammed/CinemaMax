@@ -24,7 +24,7 @@ namespace CinemaMaxFeeder.ModelJson
         public string OtherTitle { get; set; }
 
         [JsonProperty("stars")]
-        public string Stars { get; set; }
+        public Decimal Stars { get; set; }
 
         [JsonProperty("enTranslationFile")]
         public string EnTranslationFile { get; set; }
@@ -84,6 +84,7 @@ namespace CinemaMaxFeeder.ModelJson
         public long IsSpecial { get; set; }
 
         [JsonProperty("itemDate")]
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTimeOffset ItemDate { get; set; }
 
         [JsonProperty("duration")]
@@ -177,5 +178,30 @@ namespace CinemaMaxFeeder.ModelJson
         public bool Castable { get; set; }
     }
 
+    public class CustomDateTimeConverter : DateTimeConverterBase
+    {
+        private const string Format = "yyyy-MM-dd HH:mm:ss";
 
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            writer.WriteValue(((DateTime)value).ToString(Format));
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.Value == null)
+            {
+                return null;
+            }
+
+            var s = reader.Value.ToString();
+            DateTimeOffset result;
+            if (DateTimeOffset.TryParseExact(s, Format, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+            {
+                return result;
+            }
+
+            return null;
+        }
+    }
 }

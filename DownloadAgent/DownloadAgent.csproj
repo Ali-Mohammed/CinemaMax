@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aria2SDK\Aria2SDK.csproj" />
+    <ProjectReference Include="..\CinemaMaxFeeder\CinemaMaxFeeder.csproj" />
+    <ProjectReference Include="..\CinemaMax\CinemaMax.csproj" />
+  </ItemGroup>
+
+</Project>

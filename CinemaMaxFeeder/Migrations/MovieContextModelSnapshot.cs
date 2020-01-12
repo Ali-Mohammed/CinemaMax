@@ -234,8 +234,8 @@ namespace CinemaMaxFeeder.Migrations
                     b.Property<string>("SpTranslationFile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stars")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Stars")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("StartDownloadAt")
                         .HasColumnType("datetime2");

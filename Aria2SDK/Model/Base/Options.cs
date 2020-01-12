@@ -15,8 +15,9 @@ namespace GensouSakuya.Aria2.SDK.Model.Base
 
         [JsonProperty("max-download-limit")]
         public ulong? MaxDownloadSpeed { get; set; }
-        public string Out { get; internal set; }
-        public string Name { get; internal set; }
+        public string Out { get; set; }
+        public string Name { get; set; }
+        public string O { get; internal set; }
 
         public override string ToString()
         {

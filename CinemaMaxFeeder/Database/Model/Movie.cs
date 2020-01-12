@@ -1,6 +1,7 @@
 ﻿using CinemaMaxFeeder.ModelJson;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace CinemaMaxFeeder.Database.Model
@@ -24,7 +25,7 @@ namespace CinemaMaxFeeder.Database.Model
         public string EnTitle { get; set; }
         public string ArTitle { get; set; }
         public string OtherTitle { get; set; }
-        public string Stars { get; set; }
+        public Decimal Stars { get; set; }
         public string EnTranslationFile { get; set; }
         public string ArTranslationFile { get; set; }
         public string FileFile { get; set; }
@@ -82,7 +83,19 @@ namespace CinemaMaxFeeder.Database.Model
         public DateTime FinishDownloadAt { get; set; }
         public long DownloadRetry { get; set; }
         public string DownloadId { get; set; }
-       
+
+        [NotMapped]
+        public string BannerFullUrl
+        {
+            get { return "http://192.168.1.150/S1/" + this.Id + "/" + Base64Encode(this.EnTitle) + "/img-banner.jpg"; }
+        }
+
+        
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
 
     }
 
