@@ -351,7 +351,7 @@ color: white
                         </button>
 
 
-                        <a href="~/page/home/index/en" class="navbar-brand logo1 analytics" data-analytics="|eventID=6|eventInt=26|"> </a>
+                        <a href="@(Url.Content("~"))" class="navbar-brand logo1 analytics" data-analytics="|eventID=6|eventInt=26|"> </a>
                     </div>
                     <div class="collapse navbar-collapse">
 
@@ -1007,7 +1007,7 @@ color: white
                     element = $(this);
                     var historyKind = $('input[type=hidden]#historyKind').val();
                     var base_url = '~/';
-                    $('#watchLaterResult').load('~/page/user/ajaxCancelVideoFromWatchInfo',
+                    $('#watchLaterResult').load('page/user/ajaxCancelVideoFromWatchInfo',
                         { video_item_lighttigerNb: id, kind: historyKind },
                         function (data) {//333
                             // alert(  data);
@@ -1193,7 +1193,7 @@ color: white
                     var data = JSON.parse($.cookie("dataAnalytics"));
                     $.ajax({
                         type: 'POST',
-                        url: '~/api/info/ShabakatyInfo',
+                        url: 'api/info/ShabakatyInfo',
                         data: {
                             'analytics': JSON.stringify(data),
                             'userID': 443369,

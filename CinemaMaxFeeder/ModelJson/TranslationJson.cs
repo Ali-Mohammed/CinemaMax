@@ -42,5 +42,8 @@ namespace CinemaMaxFeeder.ModelJson
 
         [JsonIgnore]
         public string DownloadId { get; set; }
+
+        [JsonIgnore]
+        public Movie Movie { get; set; }
     }
 }

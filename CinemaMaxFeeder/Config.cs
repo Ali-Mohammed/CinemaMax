@@ -1,6 +1,7 @@
-﻿using System;
+﻿using CinemaMaxFeeder.Database.Model;
+using CinemaMaxFeeder.ModelJson;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace CinemaMaxFeeder
 {
@@ -20,7 +21,7 @@ namespace CinemaMaxFeeder
         public static string HangFireSqlServerConnectionStringT30 = "Data Source=192.168.1.100,49170;User ID=T30; Password=business##;Database=CinemaMaxHangFire;TrustServerCertificate=False";
         public static string HangFireSqlServerConnectionStringLocalServer = "Server=localhost\\SQLEXPRESS;Database=CinemaMaxHangFire;Trusted_Connection=True";
 
-        public static string BaseFilePathT30 = @"\\Readynas\s1\";
+        public static string BaseFilePathT30 = @"\\192.168.1.150\s1\CinemaMax\Media\";
         public static string BaseFilePathLocalServer = @"D:\CinemaMaxFiles\";
 
         public static PageNumberType PageNumberMethod = PageNumberType.FromStartToFinish;
@@ -33,7 +34,7 @@ namespace CinemaMaxFeeder
 
 
         public static int ItemPerPage = 10;
-        public static int MaxRetryNumber = 20;
+        public static int MaxRetryNumber = 5;
         public static int MaxDownloadItemsIntheSameTime = 2;
         public static int Aria2Port = 6800;
         public static string Aria2Url = "http://127.0.0.1";
@@ -92,6 +93,71 @@ namespace CinemaMaxFeeder
             return "";
         }
 
+        public static string getDirSaveFile(Movie getMovies)
+        {
 
+            var typeFolder = "default";
+
+            if (getMovies.Kind == 1)
+            {
+                typeFolder = "Movies";
+            }
+
+            if (getMovies.Kind == 1)
+            {
+                typeFolder = "Series";
+            }
+
+            var getMovieLink = getMovies.TranscoddedFiles
+            .Where(q => q.Resolution == FindMovieRes(getMovies.TranscoddedFiles))
+            .First();
+
+
+            var saveToDir = Config.BaseFilePath() + typeFolder + "/" + getMovies.Nb.ToString() + "/" + Base64Encode(getMovies.EnTitle) + "/" + getMovieLink.Resolution;
+            return saveToDir;
+        }
+
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static string FindMovieRes(ICollection<TranscoddedFilesJson> transcoddedFiles)
+        {
+
+            foreach (var link in transcoddedFiles)
+            {
+                if (link.Resolution == "1080p") { return "1080p"; }
+
+            }
+
+            foreach (var link in transcoddedFiles)
+            {
+
+                if (link.Resolution == "720p") { return "720p"; }
+
+            }
+
+            foreach (var link in transcoddedFiles)
+            {
+
+                if (link.Resolution == "480p") { return "480p"; }
+
+            }
+
+            foreach (var link in transcoddedFiles)
+            {
+
+                if (link.Resolution == "360p") { return "360p"; }
+
+            }
+            foreach (var link in transcoddedFiles)
+            {
+                if (link.Resolution == "240p") { return "240p"; }
+            }
+
+            return "";
+        }
     }
 }

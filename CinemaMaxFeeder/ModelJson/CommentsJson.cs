@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CinemaMaxFeeder.Database.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,5 +55,8 @@ namespace CinemaMaxFeeder.ModelJson
 
         [JsonProperty("permission")]
         public long Permission { get; set; }
+
+        [JsonIgnore]
+        public Movie Movie { get; set; }
     }
 }

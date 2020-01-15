@@ -65,11 +65,11 @@ namespace CinemaMax.Controllers
 
 
             var bannerMovies = await _movieContext.Movies.Where(Q => Q.IsSlideShow == true).ToListAsync();
-
-
-            DownloadProgress downloadProcessor = new DownloadProgress(LoggerDownloadProcessor, _downloadProgressHub);
-            downloadProcessor.StartDownload();
             return View(bannerMovies);
+
+           // DownloadProgress downloadProcessor = new DownloadProgress(LoggerDownloadProcessor, _downloadProgressHub);
+           // downloadProcessor.StartDownload();
+            
         }
 
         public IActionResult Privacy()

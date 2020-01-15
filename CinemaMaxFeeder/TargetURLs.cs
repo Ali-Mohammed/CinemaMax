@@ -47,5 +47,22 @@ namespace CinemaMaxFeeder
             return Config.BaseURL + "categoryLangFreqVideo";
         }
 
+        public string GetHomePageSliderURL()
+        {
+            return "https://cinemana.shabakaty.com/page/home/Sliders/en";
+        }
+
+        public string GetHomePageSliderPopularURL()
+        {
+            return "https://cinemana.shabakaty.com/page/home/PopularSliders/en";
+        }
+
+
+        public string GetHomePageSliderCustomURL()
+        {
+            return "https://cinemana.shabakaty.com/page/home/InActiveCustomList/";
+        }
+
+
     }
 }

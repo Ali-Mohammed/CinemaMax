@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CinemaMaxFeeder.Database.Model;
+using CinemaMaxFeeder.ModelJson.HomePageSlider;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,29 +17,56 @@ namespace CinemaMaxFeeder
              context = new MovieContext();
         }
 
+    
         public async System.Threading.Tasks.Task RunAsync()
         {
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("++++++++++++++++++++++++++ START +++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
-            //First the start pulling the banner movies!
-           // var start = new PullMoviesFormTheSource();
-            //start.PullingSlideShow();
+            Console.WriteLine("CHECK STORAGE");
+            if (await context.StorageServers.CountAsync() == 0)
+            {
+                var newStorage = new StorageServer
+                {
+                    ServerLoad = "50",
+                    Name = "default",
+                    Comments = "default",
+                    IP = "default",
+                    Path = "default",
+                    Size = "default",
+                    Url = "default"
+                };
 
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("++++++++++++++++++++++++++ DONE +++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                await context.StorageServers.AddAsync(newStorage);
+                await context.SaveChangesAsync();
+            }
+            Console.WriteLine("END CHECK STORAGE");
 
 
-            await RunProgramAsync();
+            // await PullHomePageSliderFormTheSourceAsync();
+
+
+
+          //  RunProgramForSlideShow();
+            //await RunProgramForSeriesAsync();
+            //await RunProgramForMoviesAsync();
+
+            await RunProgramForSeriesEpisodeAsync();
         }
 
-        public async System.Threading.Tasks.Task RunProgramAsync()
+  
+
+        private static async System.Threading.Tasks.Task PullHomePageSliderFormTheSourceAsync()
+        {
+            var start = new PullHomePageSliderFormTheSource();
+            await start.Start();
+        }
+
+        private static void RunProgramForSlideShow()
+        {
+            var start = new PullMoviesFormTheSource();
+            start.PullingSlideShow();
+        }
+
+        public async System.Threading.Tasks.Task RunProgramForMoviesAsync()
         {
             var startTimeSpan = TimeSpan.Zero;
             var periodTimeSpan = TimeSpan.FromSeconds(1);
@@ -50,11 +79,11 @@ namespace CinemaMaxFeeder
             {
                 Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                Console.WriteLine("++++++++++++++++++++++++++ START LOOP +++++++++++++++++++++++++++++");
+                Console.WriteLine("+++++++++++++++++++ START LOOP MVOIES +++++++++++++++++++++++++++++");
                 Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
-                var count = await context.Movies.CountAsync();
+                var count = await context.Movies.Where(Q => Q.Kind == 1).CountAsync();
                 Console.WriteLine(count);
 
                 Console.WriteLine(PageNumber);
@@ -67,6 +96,52 @@ namespace CinemaMaxFeeder
 
 
          
+        }
+        public async System.Threading.Tasks.Task RunProgramForSeriesAsync()
+        {
+            var startTimeSpan = TimeSpan.Zero;
+            var periodTimeSpan = TimeSpan.FromSeconds(1);
+            var PageNumber = 0;
+
+            var start = new PullMoviesFormTheSource();
+
+            while (true)
+
+            {
+                Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                Console.WriteLine("++++++++++++++++++++ START LOOP SERIES +++++++++++++++++++++++++++++");
+                Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                var count = await context.Movies.Where(Q => Q.Kind == 12).CountAsync();
+                Console.WriteLine(count);
+
+                Console.WriteLine(PageNumber);
+
+                start.PullingSeries(PageNumber);
+
+                PageNumber++;
+
+            }
+
+
+
+        }
+        public async System.Threading.Tasks.Task RunProgramForSeriesEpisodeAsync()
+        {
+            var start = new PullMoviesFormTheSource();
+
+
+                Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                Console.WriteLine("++++++++++++++++++++ START LOOP SERIES EPISODE ++++++++++++++++++++");
+                Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                var count = await context.Movies.Where(Q => Q.Kind == 12).CountAsync();
+                Console.WriteLine(count);
+
+               await start.PullingSeriesEpisodeAsync();
+
         }
     }
 }

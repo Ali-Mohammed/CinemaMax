@@ -86,3 +86,4 @@ C:\Users\ali87\source\repos\CinemaMax\Aria2SDK\obj\Release\netcoreapp3.1\Aria2SD
 C:\Users\ali87\source\repos\CinemaMax\Aria2SDK\obj\Release\netcoreapp3.1\Aria2SDK.csproj.CopyComplete
 C:\Users\ali87\source\repos\CinemaMax\Aria2SDK\obj\Release\netcoreapp3.1\Aria2SDK.dll
 C:\Users\ali87\source\repos\CinemaMax\Aria2SDK\obj\Release\netcoreapp3.1\Aria2SDK.pdb
+C:\Users\ali87\source\repos\CinemaMax\Aria2SDK\obj\Release\netcoreapp3.1\Aria2SDK.csprojAssemblyReference.cache

@@ -1,5 +1,6 @@
 ﻿using CinemaMaxFeeder.Database.Model;
 using CinemaMaxFeeder.ModelJson;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,21 +21,86 @@ namespace CinemaMaxFeeder
             this._context = new MovieContext();
         }
 
-        public int getPageNumber()
+        public async System.Threading.Tasks.Task PullingSeriesEpisodeAsync()
         {
 
-            var movieCount = _context.Movies.Count();
 
-            if (movieCount == 0)
+            foreach (var series in await _context.Movies.Where(Q => Q.Kind == 2).Where(Q => Q.RootSeries == 0).ToListAsync())
             {
-                return 0;
+                var reqUrl = targetURLs.GetSeriesEpisodesURL(series.Nb);
+
+                var movies = RequestHelper.Call<List<MovieJson>>(reqUrl);
+
+                foreach (MovieJson movie in movies)
+                {
+                    //Check if movie exsist
+                    if (_context.Movies.Where(q => q.Nb == movie.Nb).Count() == 0)
+                    {
+                        GetFullMovieInformation(movie, false);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Series is already exist in the Database: " + movie.EnTitle);
+                    }
+
+                }
+                Console.WriteLine("++++++++ LOOP DONE ++++++++++");
+
             }
 
-            //We need to exclude the slideshow movies
-            int pageNumber = movieCount / Config.ItemPerPage;
-            Console.WriteLine("Page Number: " + pageNumber);
+            Console.WriteLine("++++++++ LOOP DONE ++++++++++");
 
-            return pageNumber;
+        }
+
+        public void PullingSeries(int PageNumber)
+        {
+
+            int PageNumberForFunction = 0;
+
+            if (Config.PageNumberMethod == Config.PageNumberType.FromStartToFinish)
+            {
+                PageNumberForFunction = PageNumber;
+
+                Console.WriteLine("Config.PageNumberType.FromStartToFinis");
+                Console.WriteLine("PAGE " + PageNumberForFunction + " PAGE");
+
+            }
+
+            if (Config.PageNumberMethod == Config.PageNumberType.ByCountOfTheDatabase)
+            {
+                PageNumberForFunction = getPageNumberForSeries();
+
+                Console.WriteLine("Config.PageNumberType.ByCountOfTheDatabase");
+                Console.WriteLine("PAGE " + PageNumberForFunction + " PAGE");
+
+            }
+
+            if (_context.Movies.Count() == 0)
+            {
+                PullingSlideShow();
+            }
+            else
+            {
+                var reqUrl = targetURLs.GetSeriesListURL(Config.ItemPerPage, PageNumberForFunction);
+                var movies = RequestHelper.Call<List<MovieJson>>(reqUrl);
+
+                foreach (MovieJson movie in movies)
+                {
+                    //Check if movie exsist
+                    if (_context.Movies.Where(q => q.Nb == movie.Nb).Count() == 0)
+                    {
+                        GetFullMovieInformation(movie, false);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Series is already exist in the Database: " + movie.EnTitle);
+                    }
+
+                }
+            }
+
+
+            Console.WriteLine("++++++++ LOOP DONE ++++++++++");
         }
 
         public void Pulling(int PageNumber)
@@ -53,7 +119,7 @@ namespace CinemaMaxFeeder
 
             if (Config.PageNumberMethod == Config.PageNumberType.ByCountOfTheDatabase)
             {
-                PageNumberForFunction = getPageNumber();
+                PageNumberForFunction = getPageNumberForMovies();
 
                 Console.WriteLine("Config.PageNumberType.ByCountOfTheDatabase");
                 Console.WriteLine("PAGE " + PageNumberForFunction + " PAGE");
@@ -125,6 +191,7 @@ namespace CinemaMaxFeeder
 
         }
 
+
         public void SaveInformationIntoTheDatabase(MovieJson movieFullInfo, bool isSlideShow, MovieJson movieOrginalJson)
         {
             //Get the information for the movie
@@ -143,7 +210,7 @@ namespace CinemaMaxFeeder
 
 
             movieModel.IsSlideShow = isSlideShow;
-
+            movieModel.StorageServer = _context.StorageServers.First();
 
             if (isSlideShow)
             {
@@ -154,31 +221,9 @@ namespace CinemaMaxFeeder
             _context.Movies.Add(movieModel);
             _context.SaveChanges();
 
-            DownloadFileFromURL(movieFullInfo.ImgObjUrl.ToString(), movieModel.Id.ToString() + "/" + Base64Encode(movieModel.EnTitle),  movieFullInfo.Img);
-            DownloadFileFromURL(movieFullInfo.ImgThumbObjUrl.ToString(), movieModel.Id.ToString() + "/" + Base64Encode(movieModel.EnTitle),  movieFullInfo.ImgThumb);
-            DownloadFileFromURL(movieFullInfo.ImgMediumThumbObjUrl.ToString(), movieModel.Id.ToString() + "/" + Base64Encode(movieModel.EnTitle), movieFullInfo.ImgMediumThumb);
-
-
-            if (isSlideShow)
-            {
-                DownloadFileFromURL(movieOrginalJson.ImgObjUrl.ToString(), movieModel.Id.ToString() + "/" + Base64Encode(movieModel.EnTitle), "img-banner.jpg");
-
-            }
-
-            if (movieFullInfo.Translations != null)
-            {
-                foreach (var trans in movieFullInfo.Translations)
-                {
-                    var fileName = trans.File.ToString().Split("?")[0].Split("/translation-files/")[1];
-
-                    DownloadFileFromURL(trans.File.ToString(), movieModel.Id.ToString() + "/" + Base64Encode(movieModel.EnTitle), fileName);
-                }
-            }
-
-
-
-
         }
+
+
 
         public static string Base64Encode(string plainText)
         {
@@ -190,14 +235,6 @@ namespace CinemaMaxFeeder
         {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-        }
-
-        public static void DownloadFileFromURL(string url, string path, string fileName)
-        {
-            Console.WriteLine("DOWNLOAD FILE TO: " + Config.BaseFilePath() + path + "/" + fileName);
-            Directory.CreateDirectory(Config.BaseFilePath() + path);
-            WebClient client = new WebClient();
-            client.DownloadFileAsync(new Uri(url), Config.BaseFilePath() + path + "/" + fileName);
         }
 
         public static Movie GetMovieModelSaveInformation(MovieJson movieFullInfo, List<SkippingDurations> skippingDurations, List<DirectorsInfo> directorsInfos, List<ActorsInfo> actorsInfos, List<WritersInfo> writersInfos, List<CommentsJson> movieComments, List<TranscoddedFilesJson> movieTransCodes)
@@ -263,6 +300,7 @@ namespace CinemaMaxFeeder
             movieModel.DownloadStatus = MovieDownloadStatus.Waiting;
             movieModel.Comments = movieComments;
             movieModel.TranscoddedFiles = movieTransCodes;
+
             return movieModel;
         }
 
@@ -343,5 +381,40 @@ namespace CinemaMaxFeeder
 
             return skippingDurationsStart;
         }
+
+        public int getPageNumberForMovies()
+        {
+
+            var movieCount = _context.Movies.Count();
+
+            if (movieCount == 0)
+            {
+                return 0;
+            }
+
+            //We need to exclude the slideshow movies
+            int pageNumber = movieCount / Config.ItemPerPage;
+            Console.WriteLine("Page Number: " + pageNumber);
+
+            return pageNumber;
+        }
+
+        public int getPageNumberForSeries()
+        {
+
+            var movieCount = _context.Movies.Count();
+
+            if (movieCount == 0)
+            {
+                return 0;
+            }
+
+            //We need to exclude the slideshow movies
+            int pageNumber = movieCount / Config.ItemPerPage;
+            Console.WriteLine("Page Number: " + pageNumber);
+
+            return pageNumber;
+        }
+
     }
 }

@@ -13,6 +13,7 @@ using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using CinemaMaxFeeder;
 using CinemaMax.QueueManager;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaMax
 {
@@ -28,6 +29,7 @@ namespace CinemaMax
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<MovieContext>();
 
             services.AddControllersWithViews();
@@ -85,14 +87,16 @@ namespace CinemaMax
             });
 
 
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env)
         {
+           
+
             if (env.IsDevelopment())
             {
+                app.UseStatusCodePages(); //works fine
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -118,6 +122,8 @@ namespace CinemaMax
 
                 endpoints.MapHub<DownloadProgressHub>("/DownloadProgressHub");
             });
+
+
         }
     }
 }

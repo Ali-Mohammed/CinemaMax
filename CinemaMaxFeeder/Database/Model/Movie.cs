@@ -12,7 +12,21 @@ namespace CinemaMaxFeeder.Database.Model
         Waiting,
         Started,
         Complete,
-        Error
+        Error,
+        Pused
+    }
+
+    public partial class StorageServer
+    {
+        public long Id { get; set; }
+        public string IP { get; set; }
+        public string Path { get; set; }
+        public string Url { get; set; }
+        public string Name { get; set; }
+        public string Size { get; set; }
+        public string ServerLoad { get; set; }
+        public string Comments { get; set; }
+        public List<Movie> Movies { get; set; }
     }
 
     public partial class Movie
@@ -21,7 +35,6 @@ namespace CinemaMaxFeeder.Database.Model
         public long Nb { get; set; }
         public long Priority { get; set; }
         public bool IsSlideShow { get; set; }
-        public MovieDownloadStatus DownloadStatus { get; set; }
         public string EnTitle { get; set; }
         public string ArTitle { get; set; }
         public string OtherTitle { get; set; }
@@ -61,28 +74,38 @@ namespace CinemaMaxFeeder.Database.Model
         public long IsDeleted { get; set; }
         public string CacheShort { get; set; }
         public Uri ImgThumbObjUrl { get; set; }
-        public ICollection<SkippingDurations> SkippingDurationsStart { get; set; }
         public Uri ArTranslationFilePath { get; set; }
         public Uri EnTranslationFilePath { get; set; }
-        public ICollection<TranslationJson> Translations { get; set; }
         public bool HasIntroSkipping { get; set; }
-        public ICollection<IntroSkippingJson> IntroSkipping { get; set; }
-        public ICollection<VideoLanguagesJson> Categories { get; set; }
         public long VideoLikesNumber { get; set; }
         public long VideoDisLikesNumber { get; set; }
-        public VideoLanguagesJson VideoLanguages { get; set; }
         public long VideoCommentsNumber { get; set; }
         public long VideoViewsNumber { get; set; }
-        public ICollection<DirectorsInfo> DirectorsInfo { get; set; }
-        public ICollection<ActorsInfo> ActorsInfo { get; set; }
-        public ICollection<WritersInfo> WritersInfo { get; set; }
         public bool Castable { get; set; }
-        public ICollection<CommentsJson> Comments { get; set; }
-        public ICollection<TranscoddedFilesJson> TranscoddedFiles { get; set; }
         public DateTime StartDownloadAt { get; set; }
         public DateTime FinishDownloadAt { get; set; }
         public long DownloadRetry { get; set; }
         public string DownloadId { get; set; }
+
+        public VideoLanguagesJson VideoLanguages { get; set; }
+        public MovieDownloadStatus DownloadStatus { get; set; }
+
+
+
+        public ICollection<SkippingDurations> SkippingDurationsStart { get; set; }
+        public ICollection<TranslationJson> Translations { get; set; }
+        public ICollection<IntroSkippingJson> IntroSkipping { get; set; }
+        public ICollection<VideoLanguagesJson> Categories { get; set; }
+        public ICollection<DirectorsInfo> DirectorsInfo { get; set; }
+        public ICollection<ActorsInfo> ActorsInfo { get; set; }
+        public ICollection<WritersInfo> WritersInfo { get; set; }
+        public ICollection<CommentsJson> Comments { get; set; }
+        public ICollection<TranscoddedFilesJson> TranscoddedFiles { get; set; }
+
+        public List<HomePageSliderMovie> HomePageSliderMovies { get; set; }
+        public StorageServer StorageServer { get; set; }
+
+
 
         [NotMapped]
         public string BannerFullUrl
@@ -90,7 +113,21 @@ namespace CinemaMaxFeeder.Database.Model
             get { return "http://192.168.1.150/S1/" + this.Id + "/" + Base64Encode(this.EnTitle) + "/img-banner.jpg"; }
         }
 
-        
+        [NotMapped]
+        public string ImgObjUrlFull
+        {
+            get { return "http://192.168.1.150/S1/" + this.Id + "/" + Base64Encode(this.EnTitle) + "/" + this.Img; }
+        }
+        [NotMapped]
+        public string ImgThumbObjUrlFull
+        {
+            get { return "http://192.168.1.150/S1/" + this.Id + "/" + Base64Encode(this.EnTitle) + "/" + this.ImgThumb; }
+        }
+        [NotMapped]
+        public string ImgMediumThumbObjUrlFull
+        {
+            get { return "http://192.168.1.150/S1/" + this.Id + "/" + Base64Encode(this.EnTitle) + "/" + this.ImgMediumThumb; }
+        }
         public static string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
@@ -105,8 +142,9 @@ namespace CinemaMaxFeeder.Database.Model
         public long Id { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
-
+        public Movie Movie { get; set; }
     }
+
 
     public partial class DirectorsInfo
     {
@@ -117,6 +155,7 @@ namespace CinemaMaxFeeder.Database.Model
         public string StaffImg { get; set; }
         public string StaffImgThumb { get; set; }
         public string StaffImgMediumThumb { get; set; }
+        public Movie Movie { get; set; }
     }
     public partial class ActorsInfo
     {
@@ -127,6 +166,7 @@ namespace CinemaMaxFeeder.Database.Model
         public string StaffImg { get; set; }
         public string StaffImgThumb { get; set; }
         public string StaffImgMediumThumb { get; set; }
+        public Movie Movie { get; set; }
     }
     public partial class WritersInfo
     {
@@ -137,6 +177,7 @@ namespace CinemaMaxFeeder.Database.Model
         public string StaffImg { get; set; }
         public string StaffImgThumb { get; set; }
         public string StaffImgMediumThumb { get; set; }
+        public Movie Movie { get; set; }
     }
 
 

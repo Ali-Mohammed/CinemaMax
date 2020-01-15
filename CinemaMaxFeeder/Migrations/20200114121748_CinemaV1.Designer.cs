@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaMaxFeeder.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20200108103938_CinemaMaxV1")]
-    partial class CinemaMaxV1
+    [Migration("20200114121748_CinemaV1")]
+    partial class CinemaV1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,6 +89,54 @@ namespace CinemaMaxFeeder.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("DirectorsInfo");
+                });
+
+            modelBuilder.Entity("CinemaMaxFeeder.Database.Model.HomePageSlider", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Nb")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Options")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Order")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HomePageSliders");
+                });
+
+            modelBuilder.Entity("CinemaMaxFeeder.Database.Model.HomePageSliderMovie", b =>
+                {
+                    b.Property<long>("HomePageSliderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("MovieId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("HomePageSliderId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("HomePageSliderMovie");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.Database.Model.Movie", b =>
@@ -236,11 +284,14 @@ namespace CinemaMaxFeeder.Migrations
                     b.Property<string>("SpTranslationFile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stars")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Stars")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("StartDownloadAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<long?>("StorageServerId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Trailer")
                         .HasColumnType("nvarchar(max)");
@@ -268,6 +319,8 @@ namespace CinemaMaxFeeder.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("StorageServerId");
+
                     b.HasIndex("VideoLanguagesId");
 
                     b.ToTable("Movies");
@@ -294,6 +347,39 @@ namespace CinemaMaxFeeder.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("SkippingDurations");
+                });
+
+            modelBuilder.Entity("CinemaMaxFeeder.Database.Model.StorageServer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServerLoad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StorageServers");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.Database.Model.WritersInfo", b =>
@@ -544,20 +630,39 @@ namespace CinemaMaxFeeder.Migrations
 
             modelBuilder.Entity("CinemaMaxFeeder.Database.Model.ActorsInfo", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("ActorsInfo")
                         .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.Database.Model.DirectorsInfo", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("DirectorsInfo")
                         .HasForeignKey("MovieId");
                 });
 
+            modelBuilder.Entity("CinemaMaxFeeder.Database.Model.HomePageSliderMovie", b =>
+                {
+                    b.HasOne("CinemaMaxFeeder.Database.Model.HomePageSlider", "HomePageSlider")
+                        .WithMany("HomePageSliderMovies")
+                        .HasForeignKey("HomePageSliderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
+                        .WithMany("HomePageSliderMovies")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CinemaMaxFeeder.Database.Model.Movie", b =>
                 {
+                    b.HasOne("CinemaMaxFeeder.Database.Model.StorageServer", "StorageServer")
+                        .WithMany("Movies")
+                        .HasForeignKey("StorageServerId");
+
                     b.HasOne("CinemaMaxFeeder.ModelJson.VideoLanguagesJson", "VideoLanguages")
                         .WithMany()
                         .HasForeignKey("VideoLanguagesId");
@@ -565,49 +670,49 @@ namespace CinemaMaxFeeder.Migrations
 
             modelBuilder.Entity("CinemaMaxFeeder.Database.Model.SkippingDurations", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("SkippingDurationsStart")
                         .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.Database.Model.WritersInfo", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("WritersInfo")
                         .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.ModelJson.CommentsJson", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("Comments")
                         .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.ModelJson.IntroSkippingJson", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("IntroSkipping")
                         .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.ModelJson.TranscoddedFilesJson", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("TranscoddedFiles")
                         .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.ModelJson.TranslationJson", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("Translations")
                         .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("CinemaMaxFeeder.ModelJson.VideoLanguagesJson", b =>
                 {
-                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", null)
+                    b.HasOne("CinemaMaxFeeder.Database.Model.Movie", "Movie")
                         .WithMany("Categories")
                         .HasForeignKey("MovieId");
                 });

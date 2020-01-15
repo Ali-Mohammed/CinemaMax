@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CinemaMaxFeeder.Database.Model;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CinemaMaxFeeder.ModelJson
@@ -16,5 +17,8 @@ namespace CinemaMaxFeeder.ModelJson
 
         [JsonProperty("control_level")]
         public string ControlLevel { get; set; }
+
+        [JsonIgnore]
+        public Movie Movie { get; set; }
     }
 }

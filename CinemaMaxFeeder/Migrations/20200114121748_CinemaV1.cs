@@ -3,10 +3,66 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CinemaMaxFeeder.Migrations
 {
-    public partial class CinemaMaxV1 : Migration
+    public partial class CinemaV1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "HomePageSliders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Order = table.Column<long>(nullable: false),
+                    Nb = table.Column<long>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    Options = table.Column<string>(nullable: true),
+                    Comments = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HomePageSliders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StorageServers",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IP = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Size = table.Column<string>(nullable: true),
+                    ServerLoad = table.Column<string>(nullable: true),
+                    Comments = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StorageServers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HomePageSliderMovie",
+                columns: table => new
+                {
+                    MovieId = table.Column<long>(nullable: false),
+                    HomePageSliderId = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HomePageSliderMovie", x => new { x.HomePageSliderId, x.MovieId });
+                    table.ForeignKey(
+                        name: "FK_HomePageSliderMovie_HomePageSliders_HomePageSliderId",
+                        column: x => x.HomePageSliderId,
+                        principalTable: "HomePageSliders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateTable(
                 name: "ActorsInfo",
                 columns: table => new
@@ -176,11 +232,10 @@ namespace CinemaMaxFeeder.Migrations
                     Nb = table.Column<long>(nullable: false),
                     Priority = table.Column<long>(nullable: false),
                     IsSlideShow = table.Column<bool>(nullable: false),
-                    DownloadStatus = table.Column<int>(nullable: false),
                     EnTitle = table.Column<string>(nullable: true),
                     ArTitle = table.Column<string>(nullable: true),
                     OtherTitle = table.Column<string>(nullable: true),
-                    Stars = table.Column<string>(nullable: true),
+                    Stars = table.Column<decimal>(nullable: false),
                     EnTranslationFile = table.Column<string>(nullable: true),
                     ArTranslationFile = table.Column<string>(nullable: true),
                     FileFile = table.Column<string>(nullable: true),
@@ -221,18 +276,26 @@ namespace CinemaMaxFeeder.Migrations
                     HasIntroSkipping = table.Column<bool>(nullable: false),
                     VideoLikesNumber = table.Column<long>(nullable: false),
                     VideoDisLikesNumber = table.Column<long>(nullable: false),
-                    VideoLanguagesId = table.Column<long>(nullable: true),
                     VideoCommentsNumber = table.Column<long>(nullable: false),
                     VideoViewsNumber = table.Column<long>(nullable: false),
                     Castable = table.Column<bool>(nullable: false),
                     StartDownloadAt = table.Column<DateTime>(nullable: false),
                     FinishDownloadAt = table.Column<DateTime>(nullable: false),
                     DownloadRetry = table.Column<long>(nullable: false),
-                    DownloadId = table.Column<string>(nullable: true)
+                    DownloadId = table.Column<string>(nullable: true),
+                    VideoLanguagesId = table.Column<long>(nullable: true),
+                    DownloadStatus = table.Column<int>(nullable: false),
+                    StorageServerId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Movies_StorageServers_StorageServerId",
+                        column: x => x.StorageServerId,
+                        principalTable: "StorageServers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Movies_VideoLanguages_VideoLanguagesId",
                         column: x => x.VideoLanguagesId,
@@ -282,9 +345,19 @@ namespace CinemaMaxFeeder.Migrations
                 column: "MovieId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HomePageSliderMovie_MovieId",
+                table: "HomePageSliderMovie",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_IntroSkipping_MovieId",
                 table: "IntroSkipping",
                 column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Movies_StorageServerId",
+                table: "Movies",
+                column: "StorageServerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movies_VideoLanguagesId",
@@ -315,6 +388,14 @@ namespace CinemaMaxFeeder.Migrations
                 name: "IX_WritersInfo_MovieId",
                 table: "WritersInfo",
                 column: "MovieId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_HomePageSliderMovie_Movies_MovieId",
+                table: "HomePageSliderMovie",
+                column: "MovieId",
+                principalTable: "Movies",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ActorsInfo_Movies_MovieId",
@@ -397,6 +478,9 @@ namespace CinemaMaxFeeder.Migrations
                 name: "DirectorsInfo");
 
             migrationBuilder.DropTable(
+                name: "HomePageSliderMovie");
+
+            migrationBuilder.DropTable(
                 name: "IntroSkipping");
 
             migrationBuilder.DropTable(
@@ -412,7 +496,13 @@ namespace CinemaMaxFeeder.Migrations
                 name: "WritersInfo");
 
             migrationBuilder.DropTable(
+                name: "HomePageSliders");
+
+            migrationBuilder.DropTable(
                 name: "Movies");
+
+            migrationBuilder.DropTable(
+                name: "StorageServers");
 
             migrationBuilder.DropTable(
                 name: "VideoLanguages");

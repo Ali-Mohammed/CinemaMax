@@ -8,6 +8,11 @@ namespace DownloadAgent
         static void Main(string[] args)
         {
 
+
+            //ExtraFunctions.LoadAllMediaAgain();
+           // Console.ReadKey();
+           // return;
+
             var startTimeSpan = TimeSpan.Zero;
             var periodTimeSpan = TimeSpan.FromSeconds(60);
 

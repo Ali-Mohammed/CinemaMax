@@ -1,6 +1,3 @@
-C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.csprojAssemblyReference.cache
-C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.AssemblyInfoInputs.cache
-C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.AssemblyInfo.cs
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Aria2SDK.exe
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\CinemaMaxFeeder.exe
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\CinemaMax.Views.dll
@@ -22,6 +19,8 @@ C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Ed
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Hangfire.AspNetCore.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Hangfire.Core.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Hangfire.SqlServer.dll
+C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\System.Web.Http.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
@@ -54,6 +53,7 @@ C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\NB
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\NBitcoin.Altcoins.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\NBitcoin.Indexer.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\NuGet.Frameworks.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Serilog.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Serilog.AspNetCore.dll
@@ -194,6 +194,9 @@ C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Ci
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\Aria2SDK.pdb
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\CinemaMaxFeeder.pdb
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\bin\Release\netcoreapp3.1\CinemaMax.pdb
+C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.csprojAssemblyReference.cache
+C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.AssemblyInfoInputs.cache
+C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.AssemblyInfo.cs
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.csproj.CopyComplete
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.dll
 C:\Users\ali87\source\repos\CinemaMax\DownloadAgent\obj\Release\netcoreapp3.1\DownloadAgent.pdb
